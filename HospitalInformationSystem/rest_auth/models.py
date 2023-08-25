@@ -10,9 +10,8 @@ class EmailAccountManager(UserManager):
 
 
 
-
     
-    def create_user(self , first_name , last_name , email , age , address , role , password = None):
+    def create_user(self , first_name , last_name , email , role , address , phone_number , password = None):
         if not email:
             raise ValueError('user must have an email to register')
         
@@ -22,9 +21,9 @@ class EmailAccountManager(UserManager):
         user.set_password(password)
         user.first_name = first_name
         user.last_name = last_name
-        user.age = age
-        user.address = address
         user.role = role
+        user.address = address
+        user.phone_number = phone_number
         user.save(using = self._db)
         return user
 
@@ -43,18 +42,12 @@ class EmailAccountManager(UserManager):
 
 
 
-
-
-
-
-
-
-
 class EmailAccount(AbstractUser,models.Model):
     username = models.NOT_PROVIDED
     email = models.EmailField('Email Address' , unique=True)
-    phone_number = models.CharField(max_length=15 , null=True , blank=True)
-    address = models.CharField(max_length=255 , null=True , blank=True)
+    phone_number = models.CharField(max_length=15 , null=True, blank=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    role = models.CharField(max_length=10 , null= True , blank=True )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -63,6 +56,3 @@ class EmailAccount(AbstractUser,models.Model):
 
     def __str__(self):
         return f'{self.email}'
-    
-
-    

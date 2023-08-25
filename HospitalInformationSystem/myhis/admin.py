@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from myhis.models import *
+from rest_auth.models import EmailAccountManager
 
 admin.site.register(Patient)
 admin.site.register(Doctor)
@@ -17,3 +18,4 @@ admin.site.register(PharmacyInventory)
 admin.site.register(EquipmentsInventory)
 admin.site.register(DrugDetails)
 admin.site.register(Orders)
+
