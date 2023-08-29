@@ -19,17 +19,6 @@ class AuthBearer(HttpBearer):
 
 
 
-# class Middleware(HttpBearer):
-#     def check(self , request , token , next):
-#         try:
-#             user_email = jwt.decode(token = token , key = settings.SECRET_KEY , algorithms='HS256')
-#         except JWTError:
-#             return {'token' : 'UNauthorized'}
-#         if user_email.role == 'dr':
-#             next()
-
-
-
 def create_token_for_user(user):
     token = jwt.encode({'email' : str(user.email) , 'role' : str(user.role)} , key = settings.SECRET_KEY , algorithm='HS256')
     return {

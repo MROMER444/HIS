@@ -55,4 +55,4 @@ class EmailAccount(AbstractUser,models.Model):
     objects = EmailAccountManager()
 
     def __str__(self):
-        return f'{self.email}'
+        return f'{self.email} - {self.role}'

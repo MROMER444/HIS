@@ -2,6 +2,7 @@ asgiref==3.7.2
 certifi==2023.7.22
 charset-normalizer==3.2.0
 Django==4.2.4
+django-jazzmin==2.6.0
 django-ninja==0.22.2
 dnspython==2.4.2
 ecdsa==0.18.0

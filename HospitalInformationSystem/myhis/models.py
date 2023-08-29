@@ -1,16 +1,14 @@
 from django.db import models 
-
+from rest_auth.models import EmailAccount
 
 
 
 class Patient(models.Model):
     name = models.CharField(max_length=255)
-    date_of_birth = models.DateField()
     age = models.IntegerField()
     gender = models.CharField(max_length=10)
     phone_number = models.CharField(max_length=15)
     address = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='patient_images/')
     
     def __str__(self):
@@ -31,11 +29,10 @@ class Doctor(models.Model):
 
 class Appointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    appointment_datetime = models.DateTimeField()
-    condition = models.CharField(max_length=255)
-    is_emergency = models.BooleanField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    doctor = models.ForeignKey(EmailAccount, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.patient}'
 
 
 class MedicalHistory(models.Model):

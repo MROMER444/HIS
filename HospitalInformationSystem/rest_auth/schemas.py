@@ -38,3 +38,5 @@ class AuthOut(Schema):
 class SignIn(Schema):
     email : EmailStr
     password : str
+
+
