@@ -2,20 +2,24 @@ from ninja import Router
 from myhis.models import Appointment
 from myhis.schemas.Schemas import AppointmentIn , FourOFOut
 from django.http import JsonResponse
+from rest_auth.authorization import AuthBearer
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+
+User = get_user_model()
+
+
+appointment_router = Router(tags=['appointment'])
 
 
 
-appointment_router = Router()
-
-
-
-@appointment_router.post('/')
-def create_appointment(request , payload : AppointmentIn):
+@appointment_router.post('/' , response = {404 : FourOFOut} , auth=AuthBearer())
+def create_appointment(request , data : AppointmentIn):
     try:
-        data = payload
+        doctor = get_object_or_404(User , email = request.auth['email'])
         appointment = Appointment.objects.create(
             patient_id = data.patient_id,
-            doctor_id = data.doctor_id
+            doctor = doctor
         )
         appointment_info = {
             "image" : appointment.patient.image.url,
@@ -31,10 +35,11 @@ def create_appointment(request , payload : AppointmentIn):
 
 
 
-@appointment_router.get('/' , response = {404 : FourOFOut})
+@appointment_router.get('/getallapp' , response = {404 : FourOFOut} , auth=AuthBearer())
 def get_appointment_details(request):
     try:
-        appointments = Appointment.objects.all()
+        doctor = get_object_or_404(User , email = request.auth['email'])
+        appointments = Appointment.objects.filter(doctor = doctor)
         appointment_details = []
         
         for appointment in appointments:

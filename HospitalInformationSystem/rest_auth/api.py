@@ -1,19 +1,16 @@
-from django.contrib.auth import get_user_model , authenticate
+from django.contrib.auth import get_user_model
 from rest_auth.schemas import FourOFOut , AuthOut , SignIn
 from myhis import status
 from ninja import Router
 from .schemas import AccountIn
-User = get_user_model()
 from .authorization import create_token_for_user
+
+
 auth_router = Router(tags=['auth'])
+User = get_user_model()
 
 
-@auth_router.post('signup' , response = {
-201 : AuthOut,
-400 : FourOFOut
-})
-
-
+@auth_router.post('signup' , response = { 201 : AuthOut , 400 : FourOFOut})
 def signup(request , account_in : AccountIn):
     if account_in.password1 != account_in.password2:
         return status.BAD_REQUEST_400 , {'detail' : 'password should look alike'}
@@ -38,16 +35,10 @@ def signup(request , account_in : AccountIn):
             'token' : token,
             'account' : new_user
         }
-    
     return status.BAD_REQUEST_400 , {'detail' : 'Email already taken!'}
 
 
-@auth_router.post('signin' , response={
-    200 : AuthOut,
-    404 : FourOFOut,
-    401 : FourOFOut
-})
-
+@auth_router.post('signin' , response={200 : AuthOut,404 : FourOFOut,401 : FourOFOut})
 def signin(request , sign_in : SignIn):
     try:
         user = User.objects.get(email  = sign_in.email)
@@ -63,10 +54,7 @@ def signin(request , sign_in : SignIn):
             return status.OK_200 ,  {
                 'token' : token,
                 'account' : user
-                }
-        
-
+                }  
     if not user:
         return status.NOT_FOUND_404, {'detail' : 'User is not registered'}
-    
     

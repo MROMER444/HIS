@@ -15,4 +15,3 @@ class FourOFOut(Schema):
 
 class AppointmentIn(Schema):
     patient_id : int
-    doctor_id : int

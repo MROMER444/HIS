@@ -6,8 +6,6 @@ from HospitalInformationSystem import settings
 User = get_user_model()
 
 
-#eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1bWFtMkB5YWhvby5jb20iLCJyb2xlIjoiZG9jdG9yIn0.VA45qFJ4sW-2uUR8qUx3ezuDW9_8tzHAbnP03zMLSeg
-
 class AuthBearer(HttpBearer):
     def authenticate(self, request, token): 
         try:
@@ -16,7 +14,6 @@ class AuthBearer(HttpBearer):
             return {'token' : 'UNauthorized'}
         if user_email:
             return {'email' : str(user_email['email'])}
-
 
 
 def create_token_for_user(user):

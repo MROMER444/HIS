@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'rest_auth'
 ]
 
+
+
 MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
