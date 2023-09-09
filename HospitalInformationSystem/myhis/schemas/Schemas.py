@@ -15,3 +15,7 @@ class FourOFOut(Schema):
 
 class AppointmentIn(Schema):
     patient_id : int
+    date = str
+
+class ticketIn(Schema):
+    patient_id : int

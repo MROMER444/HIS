@@ -30,7 +30,22 @@ class Doctor(models.Model):
 class Appointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor = models.ForeignKey(EmailAccount, on_delete=models.CASCADE)
+    date = models.DateField(null=True, blank=True)
     
+    def __str__(self):
+        return f'{self.patient}'
+    
+
+class Ticket(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.patient}'
+    
+
+class Queue(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+
     def __str__(self):
         return f'{self.patient}'
 

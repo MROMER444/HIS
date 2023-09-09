@@ -1,3 +1,4 @@
+import datetime
 from ninja import Router
 from myhis.models import Appointment
 from myhis.schemas.Schemas import AppointmentIn , FourOFOut
@@ -19,7 +20,8 @@ def create_appointment(request , data : AppointmentIn):
         doctor = get_object_or_404(User , email = request.auth['email'])
         appointment = Appointment.objects.create(
             patient_id = data.patient_id,
-            doctor = doctor
+            doctor = doctor,
+            data = data.date
         )
         appointment_info = {
             "image" : appointment.patient.image.url,
@@ -39,7 +41,11 @@ def create_appointment(request , data : AppointmentIn):
 def get_appointment_details(request):
     try:
         doctor = get_object_or_404(User , email = request.auth['email'])
-        appointments = Appointment.objects.filter(doctor = doctor)
+        appointments = Appointment.objects.filter(
+            doctor = doctor,
+            date = datetime.date.today()
+            
+            )
         appointment_details = []
         
         for appointment in appointments:

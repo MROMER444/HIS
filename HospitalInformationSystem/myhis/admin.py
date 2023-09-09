@@ -18,4 +18,6 @@ admin.site.register(PharmacyInventory)
 admin.site.register(EquipmentsInventory)
 admin.site.register(DrugDetails)
 admin.site.register(Orders)
+admin.site.register(Ticket)
+admin.site.register(Queue)
 

@@ -4,6 +4,8 @@ from ninja import NinjaAPI
 from myhis.controller.patient_api import patient_router
 from rest_auth.api import auth_router
 from myhis.controller.appointment_api import appointment_router
+from myhis.controller.ticket import ticket_router
+from myhis.controller.queue import queue_router
 
 api = NinjaAPI(
     title = 'Hospital Information System',
@@ -16,6 +18,8 @@ api = NinjaAPI(
 api.add_router('auth/' , auth_router)
 api.add_router('patient/' , patient_router)
 api.add_router('appointment/' , appointment_router)
+api.add_router('ticket/' , ticket_router)
+api.add_router('queue/' , queue_router)
 
 
 

@@ -1,10 +1,7 @@
-from http.client import HTTPException
 from ninja import Router
 from django.http import JsonResponse
-from myhis import status
-from myhis.models import Patient , Appointment
+from myhis.models import Patient
 from myhis.schemas.Schemas import PatientIn , FourOFOut , AppointmentIn
-from typing import List
 from rest_auth.authorization import AuthBearer
 
 patient_router = Router(tags=['Patient'])
